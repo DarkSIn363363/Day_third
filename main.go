@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 const (
-	VATRate = 0.00
+	VATRate = 0.20
 	StandardDeliveryPrice = 299.0
 	ExpressDeliveryPrice = 599.0
 	FreeDeliveryThreshold = 5000.0
@@ -40,9 +40,9 @@ func deliveryCost(subtotal float64, isExpressDelivery bool) float64 {
 		return 0.0
 	} else if isExpressDelivery {
 		return ExpressDeliveryPrice
-	} else {
-		return StandardDeliveryPrice
-	} 
+	}
+
+	return StandardDeliveryPrice
 }
 
 func main() {
@@ -52,9 +52,9 @@ func main() {
 	discountRate := 0.15
 	isExpressDelivery := false
     
-	validateOrder := validateOrder(price, quantity, discountRate)
-	if validateOrder != "" {
-       fmt.Printf("Ошибка оформления заказа: %s\n", validateOrder)
+	validationMessage := validateOrder(price, quantity, discountRate)
+	if validationMessage != "" {
+       fmt.Printf("Ошибка оформления заказа: %s\n", validationMessage)
 	   return
 	}
 	subtotal := price * float64(quantity)

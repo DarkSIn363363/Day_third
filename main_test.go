@@ -62,6 +62,13 @@ func TestValidateOrder(t *testing.T) {
 			discountRate: 0.50,
 			want:         "",
 		},
+		{
+			name:         "тест порядка ошибок",
+			price:        0,
+			quantity:     0,
+			discountRate: 0.70,
+			want:         "цена должна быть больше 0",
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -142,7 +149,6 @@ func TestCalculateTotal(t *testing.T) {
 		price         float64
 		quantity      int
 		discountRate  float64
-		deliveryPrice float64
 		want          float64
 	}{
 		{
@@ -150,21 +156,21 @@ func TestCalculateTotal(t *testing.T) {
 			price:        1000,
 			quantity:     2,
 			discountRate: 0,
-			want:         2000,
+			want:         2400,
 		},
 		{
 			name:         "со скидкой 10 процентов",
 			price:        1000,
 			quantity:     2,
 			discountRate: 0.10,
-			want:         1800,
+			want:         2160,
 		},
 		{
 			name:         "один товар со скидкой 50 процентов",
 			price:        1000,
 			quantity:     1,
 			discountRate: 0.50,
-			want:         500,
+			want:         600,
 		},
 	}
 
